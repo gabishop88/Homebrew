@@ -5,6 +5,7 @@ var server = app.listen(3000); //Start server on localhost:3000
 
 app.use(express.static('public')); //Give the contents of the public folder to the client as static files.
 
+//Eventually, I want to support rooms to keep players in different campaigns at the same time seperate
 
 console.log("Server is running on port 3000");
 
@@ -19,5 +20,17 @@ function newConnection(socket) {
   socket.on('button', buttonPressed);
   function buttonPressed(message) {
     console.log(socket.id + " " + message);
+  }
+
+  socket.on('data-request', returnRequestedData);
+  function returnRequestedData(dataReq) {
+    console.log("recieved data request of type: " + dataReq.type);
+    data = require(dataReq.src);
+    console.log("returning data: " + data);
+    var dataRet = {
+      data: data,
+      type: dataReq.type
+    }
+    socket.emit('data-return', dataRet);
   }
 }
