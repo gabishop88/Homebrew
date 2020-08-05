@@ -19,12 +19,13 @@
       <h1>Unnamed Homebrew</h1>
     </div>
 
-    <div id="username-bar" class="left-bar" style="margin-right: 55%;">
-      <input type="text" id="username" placeholder="Username  " autocomplete="on">
+    <div id="username-bar" class="left-bar">
+      <input type="text" max="16" id="username" placeholder="Username  " autocomplete="on">
     </div>
 
-    <div id="password-bar" class="left-bar" style="margin-right: 50%;">
-      <input type="password" id="password" placeholder="Password  ">
+    <div id="password-bar" class="left-bar password-bar">
+      <input type="button" id="show-pass" class="show-pass" value="show" onclick="showPassword()">
+      <input type="password" max="16" id="password" placeholder="Password  ">
     </div>
 
     <div class="setup-panel"></div>

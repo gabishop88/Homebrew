@@ -55,4 +55,21 @@ function randomizeLoginBars() {
   margin = random(40, 60);
   bar = document.getElementById("password-bar");
   bar.setAttribute("style", "margin-right: " + margin + "%;");
+  var showPassword = document.getElementById("show-pass");
+  var w = 100 - margin;
+  showPassword.setAttribute("style", "max-width:" + w + "%;");
+  console.log(w);
+}
+
+function showPassword() {
+  var pass = document.getElementById("password");
+  var buttonClasses = document.getElementById("show-pass").classList;
+
+  if (pass.type === "password") {
+    pass.type = "text";
+    buttonClasses.add("checked");
+  } else {
+    pass.type = "password";
+    buttonClasses.remove("checked");
+  }
 }

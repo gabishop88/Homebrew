@@ -35,7 +35,6 @@ body {
   margin-top: 2rem;
   padding: 1rem 2rem 1rem 0;
   display: block;
-  justify-content: center;
   text-align: right;
   border: 2px solid var(--text);
   border-left: none;
@@ -47,6 +46,18 @@ body {
 }
 
 .left-bar input {
-  text-align: right;
+  text-align: center;
   border-bottom: 1px solid var(--accent-text);
+}
+
+.show-pass {
+  border: 2px solid var(--accent-text);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  outline: none;
+}
+
+.password-bar .checked {
+  color: var(--text);
+  background: var(--accent-text);
 }
