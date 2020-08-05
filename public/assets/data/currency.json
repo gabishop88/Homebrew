@@ -1,0 +1,24 @@
+{
+  "currencies": [
+    {
+      "name": "Gold",
+      "plural": "Gold",
+      "value": 64
+    },
+    {
+      "name": "Silver",
+      "plural": "Silver",
+      "value": 8
+    },
+    {
+      "name": "Bronze",
+      "plural": "Bronze",
+      "value": 1
+    },
+    {
+      "name": "Dollar",
+      "plural": "Dollars",
+      "value": 0.1
+    }
+  ]
+}

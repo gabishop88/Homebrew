@@ -68,5 +68,11 @@
   death-save: {
     success: 0,
     fail: 0
+  },
+  money: {
+    gold: 10,
+    silver: 20,
+    bronze: 0,
+    dollars: 0
   }
 }

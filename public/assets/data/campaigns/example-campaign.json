@@ -1,0 +1,26 @@
+{
+  "owner": "username_x",
+  "dm": "user",
+  "players": [
+    {
+      "username": "username_1",
+      "character": "characters/example_character.json"
+    },
+    {
+      "username": "user",
+      "character": "none"
+    },
+    {
+      "username": "username_2",
+      "character": "none"
+    },
+    {
+      "username": "username_x",
+      "character": "none"
+    }
+  ],
+  "bestiary": "bestiary.json",
+  "tome": "tome.json",
+  "items": "items.json",
+  "currencies": "currency.json"
+}
