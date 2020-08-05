@@ -1,0 +1,31 @@
+{
+  "name": "homebrew",
+  "version": "1.0.0",
+  "description": "Web server to play my homebrew D&D",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabishop88/Homebrew.git"
+  },
+  "keywords": [
+    "express",
+    "node",
+    "homebrew",
+    "dnd"
+  ],
+  "author": "Graham Bishop",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabishop88/Homebrew/issues"
+  },
+  "homepage": "https://github.com/gabishop88/Homebrew#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "socket.io": "^2.3.0"
+  }
+}
