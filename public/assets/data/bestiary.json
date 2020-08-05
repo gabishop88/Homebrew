@@ -1,26 +1,26 @@
 {
 
-  races: [
+  "races": [
     "human",
     "orc"
   ],
 
-  human: {
-    generic: {
+  "human": {
+    "generic": {
 
     },
 
-    named: {
+    "named": {
 
     }
   },
 
-  orc: {
-    generic: {
+  "orc": {
+    "generic": {
 
     },
 
-    named: {
+    "named": {
 
     }
   }

@@ -1,78 +1,78 @@
 {
-  name: "example",
-  owner: "username",
-  stats: {
-    hp: 20,
-    end: 40,
-    me: 37,
-    lvl: 1,
-    exp: 0,
-    sp-pts: 3,
-    sp-exp: 0,
-    sk-pts: 8
-  }
-  attributes: {
-    str: 18,
-    dex: 17,
-    con: 15,
-    int: 20,
-    wis: 19,
-    cha: 13
+  "name": "example",
+  "owner": "username",
+  "stats": {
+    "hp": 20,
+    "end": 40,
+    "me": 37,
+    "lvl": 1,
+    "exp": 0,
+    "sp-pts": 3,
+    "sp-exp": 0,
+    "sk-pts": 8
   },
-  mods: {
-    str: 4,
-    dex: 3,
-    con: 2,
-    int: 5,
-    wis: 4,
-    cha: 1,
-    atk: 0,
-    dodge: 0,
-    sp-casting: 0,
-    perception: 0,
-    weapon-prof: 0,
-    note: "Should I make weapon-prof a json object with each weapon type?",
-    init: 0
+  "attributes": {
+    "str": 18,
+    "dex": 17,
+    "con": 15,
+    "int": 20,
+    "wis": 19,
+    "cha": 13
   },
-  skills: {
-    stealth: 0,
-    recovery: 0,
-    fast-learner: 0,
-    search: 0,
-    climb: 0,
-    magic-apt: 0,
-    speech: 0,
-    acrobatics: 0,
-    endurance: 0
-    craft: {
-      metal: 0,
-      leather: 0,
-      wood: 0
+  "mods": {
+    "str": 4,
+    "dex": 3,
+    "con": 2,
+    "int": 5,
+    "wis": 4,
+    "cha": 1,
+    "atk": 0,
+    "dodge": 0,
+    "sp-casting": 0,
+    "perception": 0,
+    "weapon-prof": 0,
+    "note": "Should I make weapon-prof a json object with each weapon type?",
+    "init": 0
+  },
+  "skills": {
+    "stealth": 0,
+    "recovery": 0,
+    "fast-learner": 0,
+    "search": 0,
+    "climb": 0,
+    "magic-apt": 0,
+    "speech": 0,
+    "acrobatics": 0,
+    "endurance": 0,
+    "craft": {
+      "metal": 0,
+      "leather": 0,
+      "wood": 0
     },
-    scavenge: 5,
-    adrenaline: 0,
-    listen: 0,
-    bargain: 0,
-    crackshot: 0
+    "scavenge": 5,
+    "adrenaline": 0,
+    "listen": 0,
+    "bargain": 0,
+    "crackshot": 0
   },
-  spell-trees: [
+  "spell-trees": [
     "Fireball",
     "Blast of Flame"
   ],
-  spells: [
+  "spells": [
     "Fireball",
     "Multiply",
     "Mortar",
     "Blast of Flame"
   ],
-  death-save: {
-    success: 0,
-    fail: 0
+  "death-save": {
+    "success": 0,
+    "fail": 0
   },
-  money: {
-    gold: 10,
-    silver: 20,
-    bronze: 0,
-    dollars: 0
+  "money": {
+    "gold": 10,
+    "silver": 20,
+    "bronze": 0,
+    "dollars": 0
   }
 }
