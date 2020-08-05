@@ -1,3 +1,5 @@
+var counter = 0;
+
 var express = require('express');
 var app = express();
 var server = app.listen(3000); //Start server on localhost:3000
@@ -16,6 +18,10 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
   console.log("New Connection: " + socket.id);
+  console.log("Attempting to set id to 'user_n'");
+  socket.id = "user_" + counter;
+  counter++;
+  console.log(socket.id + " is connected to the server.");
 
   socket.on('button', buttonPressed);
   function buttonPressed(message) {

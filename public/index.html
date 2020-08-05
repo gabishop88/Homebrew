@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homebrew</title>
 
+    <link rel="stylesheet" href="/css/style.css">
+
     <script src="lib/p5.js"></script>
     <script src="js/sketch.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -12,5 +14,20 @@
   <body>
     <p id="test-json">Nothing to see here</p>
     <button type="button" onclick="logButton()">Pull my finger</button>
+
+    <div id="title-bar" class="left-bar">
+      <h1>Unnamed Homebrew</h1>
+    </div>
+
+    <div id="username-bar" class="left-bar" style="margin-right: 55%;">
+      <input type="text" id="username" placeholder="Username  " autocomplete="on">
+    </div>
+
+    <div id="password-bar" class="left-bar" style="margin-right: 50%;">
+      <input type="password" id="password" placeholder="Password  ">
+    </div>
+
+    <div class="setup-panel"></div>
+
   </body>
 </html>

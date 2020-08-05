@@ -9,16 +9,18 @@ function setup() {
   socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
   socket.on('data-return', saveData);
 
-  createCanvas(400, 400);
-  background(51);
-
   console.log("Hello! Welcome to the Homebrew");
+  randomizeLoginBars();
 
   p = document.getElementById('test-json'); // For testing
 
+  requestData("./assets/data/campaigns/example-campaign.json", "campaign");
+}
+
+function requestData(src, type) {
   var dataReq = {
-    src: "./assets/data/campaigns/example-campaign.json",
-    type: "campaign"
+    src: src,
+    type: type
   }
   socket.emit('data-request', dataReq);
 }
@@ -34,10 +36,23 @@ function saveData(data) {
   }
 }
 
-function draw() {
-}
-
 function logButton() {
   var data = "Pressed the button";
   socket.emit('button', data);
+}
+
+function randomizeLoginBars() {
+  var margin = random(20, 65);
+  var bar;
+
+  bar = document.getElementById("title-bar");
+  bar.setAttribute("style", "margin-right: " + margin + "%;");
+
+  margin = random(40, 60);
+  bar = document.getElementById("username-bar");
+  bar.setAttribute("style", "margin-right: " + margin + "%;");
+
+  margin = random(40, 60);
+  bar = document.getElementById("password-bar");
+  bar.setAttribute("style", "margin-right: " + margin + "%;");
 }

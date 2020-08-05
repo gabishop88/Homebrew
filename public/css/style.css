@@ -1,0 +1,52 @@
+:root {
+  --background: #c47ed9;
+  --accent: #302633;
+  --text: #000;
+  --accent-text: #949296;
+}
+
+* {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 18px;
+  background: #00000000;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  border: 0;
+}
+
+body {
+  background: var(--background);
+  height: 100vh;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.left-bar { /*Intended to specify margin-right elsewhere.*/
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+  background: var(--accent);
+  margin-top: 2rem;
+  padding: 1rem 2rem 1rem 0;
+  display: block;
+  justify-content: center;
+  text-align: right;
+  border: 2px solid var(--text);
+  border-left: none;
+}
+
+.left-bar h1 {
+  font-size: 2em;
+  font-family: "Luminari", fantasy;
+}
+
+.left-bar input {
+  text-align: right;
+  border-bottom: 1px solid var(--accent-text);
+}
