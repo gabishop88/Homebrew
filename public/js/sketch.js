@@ -2,11 +2,9 @@ var socket;
 var campaign_data;
 var misc_data;
 
-var p;
-
 function setup() {
-  socket = io.connect('https://homebrew.serverless.social/'); //Connect here when I use the lt
-  // socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
+  // socket = io.connect('https://homebrew.serverless.social/'); //Connect here when I use the lt
+  socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
   socket.on('data-return', saveData);
   socket.on('username-result', allowLogin);
 
@@ -14,8 +12,6 @@ function setup() {
   randomizeLoginBars();
   var usernameBox = document.getElementById('username');
   usernameBox.addEventListener('input', checkUsername);
-
-  p = document.getElementById('test-json'); // For testing
 
   requestData("./assets/data/campaigns/example-campaign.json", "campaign");
 }
@@ -32,16 +28,10 @@ function saveData(data) {
   switch (data.type) {
     case "campaign":
       campaign_data = data.data;
-      p.innerHTML = campaign_data.owner;
       break;
     default:
       misc_data = data.data;
   }
-}
-
-function logButton() {
-  var data = "Pressed the button";
-  socket.emit('button', data);
 }
 
 function randomizeLoginBars() {
@@ -88,19 +78,42 @@ function checkUsername(update) {
 }
 
 function allowLogin(usernameMatch) {
-  var logInButton = document.getElementById("log-in");
+  var signInButton = document.getElementById("sign-in");
   if (usernameMatch) {
-    logInButton.setAttribute("style", "");
+    signInButton.setAttribute("value", "Log In");
+    signInButton.setAttribute("onclick", "logIn()");
   } else {
-    logInButton.setAttribute("style", "display: none;");
+    signInButton.setAttribute("value", "Sign Up");
+    signInButton.setAttribute("onclick", "signUp()");
   }
 }
 
 function signUp() {
-  document
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  console.log(username + ' ' + password);
+  if (username === "" || password === "") {
+    alert("Please enter a username and password");
+  }
+
   console.log("Create New Account");
 }
 
 function logIn() {
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  console.log(username + ' ' + password);
+  if (username === "" || password === "") {
+    alert("Please enter a username and password");
+  }
+
   console.log("Log into existing Account");
+}
+
+function alert(msg) {
+  var alert = document.getElementById('alert-box');
+  alert.innerHTML = msg;
+  window.setTimeout(() => {
+    alert.innerHTML = "";
+  }, 1000);
 }

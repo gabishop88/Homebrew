@@ -1,8 +1,11 @@
 :root {
   --background: #c47ed9;
+  --background-grad: #9353a6;
   --accent: #302633;
   --text: #000;
   --accent-text: #949296;
+  --alert: red;
+  --alert-background: #ff3838b0;
 }
 
 * {
@@ -17,7 +20,9 @@
 
 body {
   background: var(--background);
+  background-image: linear-gradient(to top right, var(--background), var(--background-grad));
   height: 100vh;
+  overflow: hidden;
 }
 
 @keyframes slideInFromLeft {
@@ -29,12 +34,30 @@ body {
   }
 }
 
+@keyframes alertFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .left-bar { /*Intended to specify margin-right elsewhere.*/
   animation: 1s ease-out 0s 1 slideInFromLeft;
   background: var(--accent);
-  margin-top: 2rem;
+  margin-top: 12vh;
   padding: 1rem 2rem 1rem 0;
-  display: block;
+  display: flex;
+  justify-content: flex-end;
   text-align: right;
   border: 2px solid var(--text);
   border-left: none;
@@ -55,10 +78,27 @@ body {
   color: var(--accent-text);
   border-radius: 4px;
   padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  margin-right: 2rem;
   outline: none;
 }
 
 .checked {
   color: var(--text);
   background: var(--accent-text);
+}
+
+#alert-box {
+  animation: 1s ease-out 0s 1 alertFromLeft;
+  flex-shrink: 2;
+  text-align: left;
+  color: var(--text);
+  background: var(--alert-background);
+  border-left: 8px solid var(--alert);
+  align-items: center;
+  padding: 0.3rem 0.5rem 0 0.5rem;
+  margin-right: 2rem;
+}
+
+#alert-box:empty {
+  display: none;
 }

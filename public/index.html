@@ -12,8 +12,6 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <p id="test-json">Nothing to see here</p>
-    <button type="button" onclick="logButton()">Pull my finger</button>
 
     <div id="title-bar" class="left-bar">
       <h1>Unnamed Homebrew</h1>
@@ -23,14 +21,14 @@
       <input type="text" maxlength="16" id="username" placeholder="Username  " autocomplete="on">
     </div>
 
-    <div id="password-bar" class="left-bar password-bar">
+    <div id="password-bar" class="left-bar">
       <input type="button" id="show-pass" class="simple-button" value="show" onclick="showPassword()">
       <input type="password" id="password" placeholder="Password  ">
     </div>
 
-    <div id="submit-bar" class="left-bar submit-bar">
-      <input type="button" class="simple-button" id="log-in" value="Log In" onmousedown="toggleButton('log-in')" onmouseup="toggleButton('log-in')" onclick="logIn()" style="display: none;">
-      <input type="button" class="simple-button" id="sign-up" value="Sign Up" onmousedown="toggleButton('sign-up')" onmouseup="toggleButton('sign-up')" onclick="signUp()">
+    <div id="submit-bar" class="left-bar">
+      <p id="alert-box"></p>
+      <input type="button" class="simple-button" id="sign-in" value="Sign Up" onmousedown="toggleButton('sign-in')" onmouseup="toggleButton('sign-in')" onclick="signUp()">
     </div>
 
     <div class="setup-panel"></div>

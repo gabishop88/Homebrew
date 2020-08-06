@@ -20,11 +20,6 @@ function newConnection(socket) {
   socket.id = "user_" + counter++;
   console.log("New Connection: " + socket.id);
 
-  socket.on('button', buttonPressed);
-  function buttonPressed(message) {
-    console.log(socket.id + " " + message);
-  }
-
   socket.on('data-request', returnRequestedData);
   function returnRequestedData(dataReq) {
     console.log("recieved data request of type: " + dataReq.type);
