@@ -50,14 +50,15 @@ body {
   border-bottom: 1px solid var(--accent-text);
 }
 
-.show-pass {
+.simple-button {
   border: 2px solid var(--accent-text);
+  color: var(--accent-text);
   border-radius: 4px;
   padding: 0.2rem 0.5rem 0.2rem 0.5rem;
   outline: none;
 }
 
-.password-bar .checked {
+.checked {
   color: var(--text);
   background: var(--accent-text);
 }

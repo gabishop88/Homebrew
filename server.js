@@ -17,11 +17,8 @@ var io = socket(server);
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
+  socket.id = "user_" + counter++;
   console.log("New Connection: " + socket.id);
-  console.log("Attempting to set id to 'user_n'");
-  socket.id = "user_" + counter;
-  counter++;
-  console.log(socket.id + " is connected to the server.");
 
   socket.on('button', buttonPressed);
   function buttonPressed(message) {
@@ -38,5 +35,17 @@ function newConnection(socket) {
       type: dataReq.type
     }
     socket.emit('data-return', dataRet);
+  }
+
+  socket.on('username-check', checkUsername);
+  function checkUsername(name) {
+    var usernames = require('./assets/data/users.json');
+    for (var i in usernames) {
+      if (name === usernames[i].username) {
+        socket.emit('username-result', true);
+        return;
+      }
+    }
+    socket.emit('username-result', false);
   }
 }

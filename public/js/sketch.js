@@ -5,12 +5,15 @@ var misc_data;
 var p;
 
 function setup() {
-  // socket = io.connect('https://homebrew.serverless.social/'); //Connect here when I use the lt
-  socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
+  socket = io.connect('https://homebrew.serverless.social/'); //Connect here when I use the lt
+  // socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
   socket.on('data-return', saveData);
+  socket.on('username-result', allowLogin);
 
   console.log("Hello! Welcome to the Homebrew");
   randomizeLoginBars();
+  var usernameBox = document.getElementById('username');
+  usernameBox.addEventListener('input', checkUsername);
 
   p = document.getElementById('test-json'); // For testing
 
@@ -55,21 +58,49 @@ function randomizeLoginBars() {
   margin = random(40, 60);
   bar = document.getElementById("password-bar");
   bar.setAttribute("style", "margin-right: " + margin + "%;");
-  var showPassword = document.getElementById("show-pass");
-  var w = 100 - margin;
-  showPassword.setAttribute("style", "max-width:" + w + "%;");
-  console.log(w);
+
+  margin = random(40, 60);
+  bar = document.getElementById("submit-bar");
+  bar.setAttribute("style", "margin-right: " + margin + "%;");
 }
 
 function showPassword() {
   var pass = document.getElementById("password");
-  var buttonClasses = document.getElementById("show-pass").classList;
-
   if (pass.type === "password") {
     pass.type = "text";
-    buttonClasses.add("checked");
   } else {
     pass.type = "password";
-    buttonClasses.remove("checked");
   }
+  toggleButton("show-pass");
+}
+
+function toggleButton(id) {
+  var buttonClasses = document.getElementById(id).classList;
+  if (buttonClasses.contains("checked")) {
+    buttonClasses.remove("checked");
+  } else {
+    buttonClasses.add("checked");
+  }
+}
+
+function checkUsername(update) {
+  socket.emit('username-check', update.target.value);
+}
+
+function allowLogin(usernameMatch) {
+  var logInButton = document.getElementById("log-in");
+  if (usernameMatch) {
+    logInButton.setAttribute("style", "");
+  } else {
+    logInButton.setAttribute("style", "display: none;");
+  }
+}
+
+function signUp() {
+  document
+  console.log("Create New Account");
+}
+
+function logIn() {
+  console.log("Log into existing Account");
 }

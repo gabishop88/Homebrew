@@ -20,12 +20,17 @@
     </div>
 
     <div id="username-bar" class="left-bar">
-      <input type="text" max="16" id="username" placeholder="Username  " autocomplete="on">
+      <input type="text" maxlength="16" id="username" placeholder="Username  " autocomplete="on">
     </div>
 
     <div id="password-bar" class="left-bar password-bar">
-      <input type="button" id="show-pass" class="show-pass" value="show" onclick="showPassword()">
-      <input type="password" max="16" id="password" placeholder="Password  ">
+      <input type="button" id="show-pass" class="simple-button" value="show" onclick="showPassword()">
+      <input type="password" id="password" placeholder="Password  ">
+    </div>
+
+    <div id="submit-bar" class="left-bar submit-bar">
+      <input type="button" class="simple-button" id="log-in" value="Log In" onmousedown="toggleButton('log-in')" onmouseup="toggleButton('log-in')" onclick="logIn()" style="display: none;">
+      <input type="button" class="simple-button" id="sign-up" value="Sign Up" onmousedown="toggleButton('sign-up')" onmouseup="toggleButton('sign-up')" onclick="signUp()">
     </div>
 
     <div class="setup-panel"></div>
