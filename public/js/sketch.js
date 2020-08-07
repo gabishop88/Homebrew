@@ -3,10 +3,12 @@ var campaign_data;
 var misc_data;
 
 function setup() {
-  // socket = io.connect('https://homebrew.serverless.social/'); //Connect here when I use the lt
-  socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
+  socket = io.connect('https://08b03a63b6fb.ngrok.io'); //Connect here when I use ngrok
+  // socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
+
   socket.on('data-return', saveData);
   socket.on('username-result', allowLogin);
+  socket.on('login-validation', completeSignIn);
 
   console.log("Hello! Welcome to the Homebrew");
   randomizeLoginBars();
@@ -14,6 +16,7 @@ function setup() {
   usernameBox.addEventListener('input', checkUsername);
 
   requestData("./assets/data/campaigns/example-campaign.json", "campaign");
+  console.log(campaign_data);
 }
 
 function requestData(src, type) {
@@ -102,12 +105,27 @@ function signUp() {
 function logIn() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
-  console.log(username + ' ' + password);
   if (username === "" || password === "") {
     alert("Please enter a username and password");
+  } else {
+    var login = {
+      username: username,
+      password: password
+    }
+    socket.emit('login-attempt', login);
   }
+}
 
-  console.log("Log into existing Account");
+function completeSignIn(credentials) {
+  var username = document.getElementById("username").value;
+  if (credentials.loginSuccessful && credentials.username === username) {
+    console.log("Welcome " + credentials.username);
+    alert("Login Successful, welcome " + credentials.username);
+    var logInBars = document.getElementById('login-bars');
+    logInBars.classList.add('hide-left');
+  } else {
+    alert("Incorrect Password");
+  }
 }
 
 function alert(msg) {

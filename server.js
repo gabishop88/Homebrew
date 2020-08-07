@@ -1,23 +1,21 @@
-var counter = 0;
-
-var express = require('express');
-var app = express();
-var server = app.listen(3000); //Start server on localhost:3000
+const express = require('express');
+const app = express();
+const server = app.listen(3000); //Start server on localhost:3000
 // var server = require('http').createServer(app);
 
-app.use(express.static('public')); //Give the contents of the public folder to the client as static files.
+app.use(express.static(__dirname + '/public')); //Give the contents of the public folder to the client as static files.
 
-//Eventually, I want to support rooms to keep players in different campaigns at the same time seperate
+//Handle Get requests:
 
 console.log("Server is running on port 3000");
 
 var socket = require('socket.io');
 var io = socket(server);
 
-io.sockets.on('connection', newConnection);
+const crypto = require('crypto');
 
+io.sockets.on('connection', newConnection);
 function newConnection(socket) {
-  socket.id = "user_" + counter++;
   console.log("New Connection: " + socket.id);
 
   socket.on('data-request', returnRequestedData);
@@ -34,13 +32,36 @@ function newConnection(socket) {
 
   socket.on('username-check', checkUsername);
   function checkUsername(name) {
-    var usernames = require('./assets/data/users.json');
-    for (var i in usernames) {
-      if (name === usernames[i].username) {
+    var users = require('./assets/data/users.json');
+    for (var i in users) {
+      if (name === users[i].username) {
         socket.emit('username-result', true);
         return;
       }
     }
     socket.emit('username-result', false);
+  }
+
+  socket.on('login-attempt', validateLogin);
+  function validateLogin(login) {
+    var loginSuccessful = false;
+
+    var users = require('./assets/data/users.json');
+    for (var i in users) {
+      if (login.username === users[i].username) {
+        var hash = crypto.createHash('sha1').update(login.password).digest('hex');
+        if (hash === users[i].password) {
+          socket.id = users[i].username;
+          loginSuccessful = true;
+        }
+      }
+    }
+
+    var credentials = {
+      loginSuccessful: loginSuccessful,
+      username: socket.id
+    }
+    console.log(credentials);
+    socket.emit('login-validation', credentials);
   }
 }
