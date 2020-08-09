@@ -68,13 +68,25 @@ body {
   flex-direction: column;
 }
 
-.hide-left div {
+#log-out {
+  border-radius: 0 1rem 1rem 0;
+  margin-right: 90%;
+  border-left: none;
+  color: var(--accent-text);
+}
+
+.hide-left {
   animation: fadeOutLeft 1s ease-out 1s 1;
   animation-fill-mode: forwards;
 }
 
+/* .hide-left button, input {
+  display: none;
+} */
+
 .left-bar { /*Intended to specify margin-right elsewhere.*/
   animation: 1s ease-out 0s 1 slideInFromLeft;
+  animation-fill-mode: forwards;
   background: var(--accent);
   margin-top: 10vh;
   padding: 1rem 2rem 1rem 0;

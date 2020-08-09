@@ -1,6 +1,7 @@
 var socket;
 var campaign_data;
 var misc_data;
+var alerts = [];
 
 function setup() {
   socket = io.connect('https://08b03a63b6fb.ngrok.io'); //Connect here when I use ngrok
@@ -15,8 +16,8 @@ function setup() {
   var usernameBox = document.getElementById('username');
   usernameBox.addEventListener('input', checkUsername);
 
-  requestData("./assets/data/campaigns/example-campaign.json", "campaign");
-  console.log(campaign_data);
+  requestData("./data/campaigns/example-campaign.json", "campaign");
+  console.log(document.getElementById('login-bars').classList);
 }
 
 function requestData(src, type) {
@@ -106,7 +107,7 @@ function logIn() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
   if (username === "" || password === "") {
-    alert("Please enter a username and password");
+    alert("Please enter a password");
   } else {
     var login = {
       username: username,
@@ -119,19 +120,33 @@ function logIn() {
 function completeSignIn(credentials) {
   var username = document.getElementById("username").value;
   if (credentials.loginSuccessful && credentials.username === username) {
-    console.log("Welcome " + credentials.username);
     alert("Login Successful, welcome " + credentials.username);
     var logInBars = document.getElementById('login-bars');
+    var logOut = document.getElementById('log-out');
     logInBars.classList.add('hide-left');
+    logOut.classList.remove('hide-left');
+    logOut.classList.add('left-bar');
   } else {
     alert("Incorrect Password");
   }
 }
 
+function logOut() {
+  console.log("Logging Out");
+}
+
 function alert(msg) {
-  var alert = document.getElementById('alert-box');
-  alert.innerHTML = msg;
-  window.setTimeout(() => {
-    alert.innerHTML = "";
-  }, 1000);
+  alerts.push(msg);
+  var alertBox = document.getElementById('alert-box');
+  postNextAlert();
+
+  function postNextAlert() {
+    alertBox.innerHTML = alerts.shift();
+    window.setTimeout(() => {
+      alertBox.innerHTML = "";
+      if (alerts.length > 0) {
+        postNextAlert();
+      }
+    }, 1000);
+  }
 }
