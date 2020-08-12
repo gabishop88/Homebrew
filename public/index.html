@@ -12,21 +12,24 @@
     <script src="lib/p5.js"></script>
     <script src="js/sketch.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="js/utility.js">
+
+    </script>
   </head>
   <body>
 
-    <div id="log-out" class="hide-left">
+    <div id="log-out" class="no-display left-bar">
       <button id="logout-btn" onclick="logOut()"><i class="fas fa-sign-out-alt"></i>Log Out</button>
     </div>
 
-    <div id="login-bars">
+    <div id="login-bars" class="no-display">
 
       <div id="title-bar" class="left-bar">
         <h1>Unnamed Homebrew</h1>
       </div>
 
       <div id="username-bar" class="left-bar">
-        <input type="text" maxlength="16" id="username" placeholder="Username  " autocomplete="on">
+        <input type="text" maxlength="16" id="username" placeholder="Username  ">
       </div>
 
       <div id="password-bar" class="left-bar">
@@ -36,7 +39,7 @@
 
       <div id="submit-bar" class="left-bar">
         <p id="alert-box"></p>
-      <input type="button" class="simple-button" id="sign-in" value="Sign Up" onmousedown="toggleButton('sign-in')" onmouseup="toggleButton('sign-in')" onclick="signUp()">
+      <input type="button" class="simple-button" id="sign-in" value="Sign Up" onclick="signUp()">
 
     </div>
 

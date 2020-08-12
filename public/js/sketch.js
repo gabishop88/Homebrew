@@ -2,79 +2,42 @@ var socket;
 var campaign_data;
 var misc_data;
 var alerts = [];
+var gradientSpeed = 1;
+var gradHue = 0;
+var gradGap = 40;
 
 function setup() {
+  //connect socket to server.
   socket = io.connect('https://08b03a63b6fb.ngrok.io'); //Connect here when I use ngrok
-  // socket = io.connect('localhost:3000');  //Connect here as a backup. This shuold be temporary.
+  // socket = io.connect('localhost:3000');  //When I am not using an https tunnel
 
-  socket.on('data-return', saveData);
+  // Set up socket responses
   socket.on('username-result', allowLogin);
   socket.on('login-validation', completeSignIn);
 
+  //Page setup
   console.log("Hello! Welcome to the Homebrew");
-  randomizeLoginBars();
+  randomizeBarLengths();
   var usernameBox = document.getElementById('username');
-  usernameBox.addEventListener('input', checkUsername);
+  usernameBox.addEventListener('input', checkUsername); //'input' is triggered when usernameBox.value changes.
+  playAnimation(document.getElementById('login-bars'), 'anim-slide-on');
 
-  requestData("./data/campaigns/example-campaign.json", "campaign");
-  console.log(document.getElementById('login-bars').classList);
+  fetch('test')
+    .then((response) => {
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    });
 }
 
-function requestData(src, type) {
-  var dataReq = {
-    src: src,
-    type: type
+function draw() {
+  var grad = 'background-image: linear-gradient(to top right, hsl(' + gradHue + ', 30%, 25%), hsl(' + ((gradHue + gradGap) % 360) + ', 30%, 25%));';
+  gradHue = parseInt(gradHue, 10) + gradientSpeed;
+  if (gradHue >= 360) {
+    gradHue = 0;
   }
-  socket.emit('data-request', dataReq);
-}
-
-function saveData(data) {
-  switch (data.type) {
-    case "campaign":
-      campaign_data = data.data;
-      break;
-    default:
-      misc_data = data.data;
-  }
-}
-
-function randomizeLoginBars() {
-  var margin = random(20, 65);
-  var bar;
-
-  bar = document.getElementById("title-bar");
-  bar.setAttribute("style", "margin-right: " + margin + "%;");
-
-  margin = random(40, 60);
-  bar = document.getElementById("username-bar");
-  bar.setAttribute("style", "margin-right: " + margin + "%;");
-
-  margin = random(40, 60);
-  bar = document.getElementById("password-bar");
-  bar.setAttribute("style", "margin-right: " + margin + "%;");
-
-  margin = random(40, 60);
-  bar = document.getElementById("submit-bar");
-  bar.setAttribute("style", "margin-right: " + margin + "%;");
-}
-
-function showPassword() {
-  var pass = document.getElementById("password");
-  if (pass.type === "password") {
-    pass.type = "text";
-  } else {
-    pass.type = "password";
-  }
-  toggleButton("show-pass");
-}
-
-function toggleButton(id) {
-  var buttonClasses = document.getElementById(id).classList;
-  if (buttonClasses.contains("checked")) {
-    buttonClasses.remove("checked");
-  } else {
-    buttonClasses.add("checked");
-  }
+  document.body.setAttribute('style', grad);
+  // document.body.style.backgoundImage = 'linear-gradient(to-top-right, red, blue)';
 }
 
 function checkUsername(update) {
@@ -118,14 +81,15 @@ function logIn() {
 }
 
 function completeSignIn(credentials) {
-  var username = document.getElementById("username").value;
-  if (credentials.loginSuccessful && credentials.username === username) {
+  if (credentials.loginSuccessful) {
     alert("Login Successful, welcome " + credentials.username);
-    var logInBars = document.getElementById('login-bars');
-    var logOut = document.getElementById('log-out');
-    logInBars.classList.add('hide-left');
-    logOut.classList.remove('hide-left');
-    logOut.classList.add('left-bar');
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    playAnimation(document.getElementById('login-bars'), 'anim-slide-off');
+    window.setTimeout(() => {
+      displayElement(document.getElementById('login-bars'), false);
+      playAnimation(document.getElementById('log-out'), 'anim-slide-on');
+    }, 1000);
   } else {
     alert("Incorrect Password");
   }
@@ -133,6 +97,13 @@ function completeSignIn(credentials) {
 
 function logOut() {
   console.log("Logging Out");
+  socket.emit('log-out');
+  playAnimation(document.getElementById('log-out'), 'anim-slide-off');
+  window.setTimeout(() => {
+    randomizeBarLengths();
+    displayElement(document.getElementById('log-out'), false);
+    playAnimation(document.getElementById('login-bars'), 'anim-slide-on');
+  }, 1000);
 }
 
 function alert(msg) {
@@ -148,5 +119,24 @@ function alert(msg) {
         postNextAlert();
       }
     }, 1000);
+  }
+}
+
+function playAnimation(element, animClass) {
+  displayElement(element, true);
+  for (var i = 0; i < element.classList.length; i++) {
+    if (element.classList[i].substring(0, 4) === 'anim') {
+      element.classList.remove(element.classList[i]);
+    }
+  }
+  void element.offsetWidth;
+  element.classList.add(animClass);
+}
+
+function displayElement(element, display) {
+  if (display) {
+    element.classList.remove('no-display');
+  } else {
+    element.classList.add('no-display');
   }
 }

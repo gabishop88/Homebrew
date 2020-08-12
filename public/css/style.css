@@ -1,6 +1,7 @@
 :root {
   --background: #c47ed9;
   --background-grad: #834396;
+  --background-stripe: red;
   --accent: #302633;
   --text: #000;
   --accent-text: #949296;
@@ -10,7 +11,7 @@
 
 * {
   font-family: "Lucida Console", Monaco, monospace;
-  font-size: 18px;
+  font-size: 16px;
   background: #00000000;
   margin: 0;
   padding: 0;
@@ -20,18 +21,9 @@
 
 body {
   background: var(--background);
-  background-image: linear-gradient(to top right, var(--background), var(--background-grad));
+  /* background-image: linear-gradient(to top right, var(--background), var(--background-grad)); */
   height: 100vh;
   overflow: hidden;
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
 }
 
 @keyframes alertFromLeft {
@@ -70,23 +62,28 @@ body {
 
 #log-out {
   border-radius: 0 1rem 1rem 0;
-  margin-right: 90%;
+  margin-right: 88%;
   border-left: none;
   color: var(--accent-text);
 }
 
-.hide-left {
-  animation: fadeOutLeft 1s ease-out 1s 1;
-  animation-fill-mode: forwards;
+#logout-btn * {
+  padding: 0 0.5rem 0 0.5rem;
 }
 
-/* .hide-left button, input {
-  display: none;
-} */
+.no-display {
+  display: none !important;
+}
+
+.anim-slide-on {
+  animation: fadeOutLeft 1s ease-out 0s 1 reverse forwards;
+}
+
+.anim-slide-off {
+  animation: fadeOutLeft 1s ease-out 0s 1 normal forwards;
+}
 
 .left-bar { /*Intended to specify margin-right elsewhere.*/
-  animation: 1s ease-out 0s 1 slideInFromLeft;
-  animation-fill-mode: forwards;
   background: var(--accent);
   margin-top: 10vh;
   padding: 1rem 2rem 1rem 0;
@@ -117,7 +114,7 @@ body {
   outline: none;
 }
 
-.checked {
+.checked, #sign-in:hover {
   color: var(--text);
   background: var(--accent-text);
 }

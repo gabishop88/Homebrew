@@ -1,4 +1,6 @@
 {
+  "name": "Campaign 1",
+  "id": "example-id",
   "owner": "username_x",
   "dm": "user",
   "players": [
